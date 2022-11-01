@@ -14,6 +14,18 @@ WEEK_DAYS = {
     'Sunday': ['Воскресеьне', 0]
 }
 
+# Пришлось создать второй аналогичный словарь. Я бы мог исправить это, но..
+# Мне лень..
+WEEK_DAYS_INDEXES = {
+    '0': 'Понедельник',
+    '1': 'Вторник',
+    '2': 'Среда',
+    '3': 'Четверг',
+    '4': 'Пятница',
+    '5': 'Суббота',
+    '6': 'Воскресенье',
+}
+
 EXECUTE_LESSONS = '''
     SELECT * FROM Schedule
     WHERE day == ?
@@ -141,18 +153,31 @@ class Schedule(QMainWindow, Ui_Schedule):
         exec_schedule = '''UPDATE Schedule SET '''
         sql_elems_for_save = []
 
-        # Сохраняю расписание
         for i in range(1, self.lessons_table.rowCount() + 1):
+
+            # Сохраняю расписание
             if self.lessons_table.item(i - 1, 0) != None:
                 sql_elems_for_save.append(
                     f"'{str(i)}' = '{self.lessons_table.item(i - 1, 0).text()}'")
             else:
                 sql_elems_for_save.append(f"'{str(i)}' = '(Урок)'")
 
+            # Пытаюсь сохранить время начала урока
+            try:
+                dt.datetime(
+                    1, 1, 1, *map(int, self.lessons_table.item(i - 1, 1).text().split(':')))
+                cur.execute("UPDATE bells_schedule SET lesson_starts = ? WHERE lesson_number == ?",
+                            (f"{self.lessons_table.item(i - 1, 1).text()}", i))
+            except:
+                pass
+
+        # Заменяю значения с названиями уроков, которые находятся в
+        # ячейках, выходящих за рамки QTable.rowCount() на NULL для корректного отображения
         if self.lessons_table.rowCount() < self.lsns_count:
             for i in range(self.lessons_table.rowCount() + 1, self.lsns_count + 1):
                 sql_elems_for_save.append(f"'{str(i)}' = NULL")
 
+        # Если ячеек в БД нехватает для сохранения таблицы QTable, вывожу сообщение ...
         try:
             cur.execute(exec_schedule + ', '.join(sql_elems_for_save) +
                         f" WHERE day == '{self.days_of_week.currentText()}'")
