@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\chane\Desktop\Softs\Any\TerffexCraftShop\css\untitled2.ui'
+# Form implementation generated from reading ui file 'C:\Users\chane\Desktop\Softs\Any\TerffexCraftShop\css\others\untitled2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -22,12 +22,20 @@ class Ui_Diary(object):
         self.previous_week = QtWidgets.QPushButton(self.centralwidget)
         self.previous_week.setObjectName("previous_week")
         self.gridLayout.addWidget(self.previous_week, 0, 0, 1, 1)
-        self.month_lbl = QtWidgets.QLabel(self.centralwidget)
-        self.month_lbl.setObjectName("month_lbl")
-        self.gridLayout.addWidget(self.month_lbl, 0, 1, 1, 1)
+        self.save_diary_btn = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.save_diary_btn.sizePolicy().hasHeightForWidth())
+        self.save_diary_btn.setSizePolicy(sizePolicy)
+        self.save_diary_btn.setObjectName("save_diary_btn")
+        self.gridLayout.addWidget(self.save_diary_btn, 0, 5, 1, 1)
         self.next_week = QtWidgets.QPushButton(self.centralwidget)
         self.next_week.setObjectName("next_week")
-        self.gridLayout.addWidget(self.next_week, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.next_week, 0, 6, 1, 1)
+        self.update_diary_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.update_diary_btn.setObjectName("update_diary_btn")
+        self.gridLayout.addWidget(self.update_diary_btn, 0, 1, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout()
@@ -198,7 +206,10 @@ class Ui_Diary(object):
         self.saturday_table.setHorizontalHeaderItem(2, item)
         self.verticalLayout.addWidget(self.saturday_table)
         self.horizontalLayout.addLayout(self.verticalLayout)
-        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 3)
+        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 7)
+        self.month_lbl = QtWidgets.QLabel(self.centralwidget)
+        self.month_lbl.setObjectName("month_lbl")
+        self.gridLayout.addWidget(self.month_lbl, 0, 3, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1043, 21))
@@ -215,8 +226,9 @@ class Ui_Diary(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.previous_week.setText(_translate("MainWindow", "<---------"))
-        self.month_lbl.setText(_translate("MainWindow", "Месяц"))
+        self.save_diary_btn.setText(_translate("MainWindow", "Сохранить"))
         self.next_week.setText(_translate("MainWindow", "--------->"))
+        self.update_diary_btn.setText(_translate("MainWindow", "Обновить"))
         self.monday_lbl.setText(_translate("MainWindow", "11"))
         self.tuesday_lbl.setText(_translate("MainWindow", "22"))
         self.wednesday_lbl.setText(_translate("MainWindow", "33"))
@@ -326,8 +338,9 @@ class Ui_Diary(object):
         item = self.saturday_table.verticalHeaderItem(5)
         item.setText(_translate("MainWindow", "6"))
         item = self.saturday_table.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Новый столбец"))
+        item.setText(_translate("MainWindow", "Предмет"))
         item = self.saturday_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Домашнее задание"))
         item = self.saturday_table.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Предмет"))
+        item.setText(_translate("MainWindow", "Оценка"))
+        self.month_lbl.setText(_translate("MainWindow", "Месяц"))

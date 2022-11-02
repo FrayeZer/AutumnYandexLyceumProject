@@ -61,7 +61,7 @@ class Schedule(QMainWindow, Ui_Schedule):
         self.add_lsn.clicked.connect(self.add_lesson)
         self.remove_lsn.clicked.connect(self.remove_lesson)
         self.upd_btn.clicked.connect(self.update_table)
-        self.save_btn.clicked.connect(self.save_table)
+        self.save_btn.clicked.connect(self.show_dialog)
 
     def fill_table(self):
 
@@ -187,3 +187,27 @@ class Schedule(QMainWindow, Ui_Schedule):
 
         con.commit()
         con.close()
+
+    def show_dialog(self):
+        dlg = CustomDialog()
+        if dlg.exec():
+            self.save_table()
+
+
+class CustomDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle(" ")
+
+        QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Close
+
+        self.buttonBox = QDialogButtonBox(QBtn)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+
+        self.layout = QVBoxLayout()
+        message = QLabel('Подтвердить изменения?')
+        self.layout.addWidget(message)
+        self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)

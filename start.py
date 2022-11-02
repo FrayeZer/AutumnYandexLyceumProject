@@ -1,8 +1,6 @@
 import sys
+from main_window import *
 
-from main_window import MainWindow
-from schedule import *
-from diary import *
 
 def main():
     app = QApplication(sys.argv)

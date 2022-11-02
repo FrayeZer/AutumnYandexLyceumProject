@@ -5,6 +5,7 @@ from PyQt5.QtCore import QThread
 from main_window_ui import Ui_MainWindow
 from diary import *
 from schedule import *
+from grades import *
 
 # ---------------------------------------------------------------------------------
 # class Time_updater_Thread.
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.diary = Diary()
         self.schedule = Schedule()
+        self.grades = Grades()
 
         self.initobjs()
         self.upd_date()
@@ -41,12 +43,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def initobjs(self):
         self.open_diary_btn.clicked.connect(self.open_diary)
         self.open_schedule_btn.clicked.connect(self.open_schedule)
+        self.open_grades_btn.clicked.connect(self.open_grades_table)
 
     def open_diary(self):
         self.diary.show()
 
     def open_schedule(self):
         self.schedule.show()
+    
+    def open_grades_table(self):
+        self.grades.show()
 
     def upd_time(self):
         self.time_now.setText(
