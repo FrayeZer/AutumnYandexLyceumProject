@@ -61,7 +61,7 @@ class Grades(QMainWindow, Ui_Grades):
         con = sqlite3.connect('diary.sqlite')
         cur = con.cursor()
 
-        # Покучаю список всех предметов из расписания, убираю дубликаты с помощью множеств
+        # Получаю список всех предметов из расписания, убираю дубликаты с помощью множеств
         self.all_lslns_set = set()
         self.lslns_lst = cur.execute('SELECT * FROM Schedule').fetchall()
         for lsns in self.lslns_lst:

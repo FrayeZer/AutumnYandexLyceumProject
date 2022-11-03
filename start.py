@@ -13,3 +13,5 @@ if __name__ == '__main__':
     main()
 else:
     print(f'This .py file is not a module!')
+
+# Всего 560 строк кода (без комментариев - около 510)
