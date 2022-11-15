@@ -1,5 +1,6 @@
 import sqlite3
 import datetime as dt
+import csv
 
 from PyQt5.QtWidgets import *
 from grades_ui import *
@@ -56,6 +57,31 @@ class Grades(QMainWindow, Ui_Grades):
 
         self.grades_table.setHorizontalHeaderLabels(
             ['Предмет', *[str(i + 1) for i in range(self.grades_table.columnCount() - 2)], 'Средний балл'])
+
+        # Очищаю от текста csv файл
+        with open('grades.csv', 'wt', encoding='utf8') as removetext:
+            writer = csv.writer(
+                    removetext, delimiter=';', quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL)    
+            writer.writerow([])
+
+        # Записываю все оценки в csv файл
+        with open('grades.csv', 'at', encoding='utf8', newline='') as csvf: 
+            writer = csv.writer(
+                    csvf, delimiter=';', quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL)
+            line = []
+            writer.writerow(['Предмет', *[str(i + 1) + 'оценка' for i in range(self.grades_table.columnCount() - 2)], 'Средний балл'])
+            for i in range(self.grades_table.rowCount()):
+                for j in range(self.grades_table.columnCount()):
+                    try:
+                        line.append(self.grades_table.item(i, j).text())
+                    except:
+                        line.append('_')
+                writer.writerow(line)
+                line = []
+
+
 
     def get_all_lslns_lst(self):
         con = sqlite3.connect('diary.sqlite')

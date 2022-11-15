@@ -2,6 +2,7 @@ import datetime as dt
 
 from time import sleep
 from PyQt5.QtCore import QThread
+from PyQt5.QtGui import QPixmap
 from main_window_ui import Ui_MainWindow
 from diary import *
 from schedule import *
@@ -41,6 +42,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.upd_date()
 
     def initobjs(self):
+        self.img = QLabel(self)
+        self.img.setPixmap(QPixmap('picture.png'))
+        self.img.setGeometry(141, 240, 64, 64)
         self.open_diary_btn.clicked.connect(self.open_diary)
         self.open_schedule_btn.clicked.connect(self.open_schedule)
         self.open_grades_btn.clicked.connect(self.open_grades_table)
